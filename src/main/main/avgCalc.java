@@ -16,11 +16,15 @@ public class avgCalc {
     private int sum = 0;
 
     public avgCalc(List<Integer> calcList) {
+        int first = 0;
+        int last = calcList.size() - 1;
+
+        count = calcList.size();
+
         if(!calcList.isEmpty()) {
             Collections.sort(calcList);
-            min = calcList.get(0);
-            max = calcList.get(calcList.size() - 1);
-            count = calcList.size();
+            min = calcList.get(first);
+            max = calcList.get(last);
             for (Integer num : calcList) {
                 sum += num;
             }
@@ -51,11 +55,13 @@ public class avgCalc {
     public BigDecimal getMean() { return mean; }
 
     private void setMedian(List<Integer> medianList) {
+        int middle = count/2;
+        int middlePair = count/2 - 1;
         if(isEven) {
-            int quickSum = medianList.get(count/2) + medianList.get(count/2 - 1);
+            int quickSum = medianList.get(middle) + medianList.get(middlePair);
             median = BigDecimal.valueOf(quickSum).divide(BigDecimal.valueOf(2.0),2, RoundingMode.CEILING);
         } else {
-            median = BigDecimal.valueOf(medianList.get(count / 2)).setScale(2, RoundingMode.CEILING);
+            median = BigDecimal.valueOf(medianList.get(middle)).setScale(2, RoundingMode.CEILING);
         }
     }
     public BigDecimal getMedian() { return median; }
